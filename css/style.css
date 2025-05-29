@@ -176,8 +176,52 @@ section:not(.hero) {
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     scroll-padding-top: 80px;
+}
+
+/* CONTROL ESPECÍFICO DE SCROLL EN MÓVILES */
+@media (max-width: 768px) {
+    html {
+        scroll-behavior: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    
+    /* Evitar scroll snap que causa saltos automáticos */
+    * {
+        scroll-snap-type: none !important;
+        scroll-snap-align: none !important;
+    }
+    
+    /* Asegurar que el hero permita scroll libre */
+    .hero {
+        scroll-snap-type: none !important;
+        scroll-snap-align: none !important;
+        overflow: visible;
+    }
+    
+    /* Mejorar área táctil del dropdown sin interferir con scroll */
+    .hero-buttons {
+        padding: 20px 0;
+        margin-bottom: 100px;
+    }
+    
+    .contact-dropdown {
+        position: relative;
+        z-index: 99999;
+        touch-action: manipulation;
+    }
+    
+    /* Evitar que el dropdown interfiera con el scroll natural */
+    .dropdown-menu {
+        touch-action: auto;
+    }
 }
 
 body {

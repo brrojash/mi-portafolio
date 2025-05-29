@@ -66,6 +66,7 @@ function initContactDropdown() {
     if (contactBtn && dropdown) {
         contactBtn.addEventListener('click', function(e) {
             e.stopPropagation();
+            e.preventDefault(); // Prevenir cualquier comportamiento de scroll
             toggleDropdown();
         });
         
@@ -76,12 +77,39 @@ function initContactDropdown() {
             }
         });
         
+        // Cerrar dropdown al tocar fuera en móviles
+        document.addEventListener('touchstart', function(e) {
+            if (!contactDropdownContainer.contains(e.target) && dropdown.classList.contains('show')) {
+                closeDropdown();
+            }
+        }, { passive: true });
+        
+        // Prevenir scroll del body cuando el dropdown está abierto en móviles
+        function preventBodyScroll(prevent) {
+            if (window.innerWidth <= 768) {
+                if (prevent) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                }
+            }
+        }
+        
         // Animación de entrada para cada item del dropdown
         const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
         dropdownItems.forEach((item, index) => {
             item.style.opacity = '0';
             item.style.transform = 'translateY(-15px)';
             item.style.transition = `all 0.3s ease ${index * 0.1}s`;
+            
+            // Prevenir scroll accidental en cada item
+            item.addEventListener('touchstart', function(e) {
+                e.stopPropagation();
+            }, { passive: true });
         });
     }
     
@@ -99,23 +127,21 @@ function initContactDropdown() {
         dropdown.classList.add('show');
         contactDropdownContainer.classList.add('active');
         
+        // Prevenir scroll del body en móviles
+        if (window.innerWidth <= 768) {
+            document.body.style.overflow = 'hidden';
+        }
+        
         // Asegurar z-index súper alto
         dropdown.style.zIndex = '999999';
         contactDropdownContainer.style.zIndex = '999999';
-        dropdown.style.position = 'absolute';
         
-        // Verificar que el dropdown tenga suficiente espacio
-        const rect = contactBtn.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-        const dropdownHeight = 280; // Altura aproximada del dropdown
-        
-        // Si no hay suficiente espacio abajo, ajustar posición
-        if (rect.bottom + dropdownHeight > viewportHeight) {
-            dropdown.style.top = 'auto';
-            dropdown.style.bottom = 'calc(100% + 25px)';
-        } else {
-            dropdown.style.top = 'calc(100% + 25px)';
-            dropdown.style.bottom = 'auto';
+        // En móviles, posicionar como modal
+        if (window.innerWidth <= 768) {
+            dropdown.style.position = 'fixed';
+            dropdown.style.top = '50%';
+            dropdown.style.left = '50%';
+            dropdown.style.transform = 'translate(-50%, -50%)';
         }
         
         // Animar items individualmente
@@ -128,20 +154,24 @@ function initContactDropdown() {
         });
         
         console.log('Dropdown abierto - 4 elementos:', dropdownItems.length);
-        console.log('Posición dropdown:', {
-            top: dropdown.style.top,
-            bottom: dropdown.style.bottom,
-            zIndex: dropdown.style.zIndex
-        });
     }
     
     function closeDropdown() {
         dropdown.classList.remove('show');
         contactDropdownContainer.classList.remove('active');
         
+        // Restaurar scroll del body
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        
         // Reset estilos de posición
-        dropdown.style.top = 'calc(100% + 25px)';
-        dropdown.style.bottom = 'auto';
+        if (window.innerWidth > 768) {
+            dropdown.style.position = 'absolute';
+            dropdown.style.top = 'calc(100% + 25px)';
+            dropdown.style.left = '50%';
+            dropdown.style.transform = 'translateX(-50%)';
+        }
         
         // Reset animation
         const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
@@ -697,8 +727,8 @@ function typeWriter(element, text, speed) {
 // ============================================
 
 function initSmoothScrolling() {
-    // Interceptar todos los enlaces internos
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
+    // Interceptar solo enlaces de navegación específicos, no todo el scroll
+    document.querySelectorAll('a[href^="#"]:not(.dropdown-item)').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
@@ -902,72 +932,28 @@ window.addEventListener('error', function(e) {
 });
 
 // ============================================
-// INTERACCIONES TÁCTILES (MOBILE)
+// INTERACCIONES TÁCTILES DESHABILITADAS
+// (Causaban scroll automático no deseado en móviles)
 // ============================================
 
+// Función deshabilitada para evitar scroll automático
 function initTouchInteractions() {
-    let startY = 0;
-    let endY = 0;
-    
-    document.addEventListener('touchstart', function(e) {
-        startY = e.touches[0].clientY;
-    }, { passive: true });
-    
-    document.addEventListener('touchend', function(e) {
-        endY = e.changedTouches[0].clientY;
-        handleSwipe();
-    }, { passive: true });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = startY - endY;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe up - scroll to next section
-                scrollToNextSection();
-            } else {
-                // Swipe down - scroll to previous section
-                scrollToPrevSection();
-            }
-        }
-    }
+    // DESHABILITADO: Esta función causaba scroll automático no deseado
+    // Los usuarios deben poder hacer scroll libre sin saltar automáticamente a secciones
+    return;
 }
 
+// Funciones de scroll automático deshabilitadas
 function scrollToNextSection() {
-    const sections = document.querySelectorAll('section');
-    const currentSection = getCurrentSection();
-    const currentIndex = Array.from(sections).indexOf(currentSection);
-    
-    if (currentIndex < sections.length - 1) {
-        const nextSection = sections[currentIndex + 1];
-        nextSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    return; // Deshabilitado
 }
 
 function scrollToPrevSection() {
-    const sections = document.querySelectorAll('section');
-    const currentSection = getCurrentSection();
-    const currentIndex = Array.from(sections).indexOf(currentSection);
-    
-    if (currentIndex > 0) {
-        const prevSection = sections[currentIndex - 1];
-        prevSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    return; // Deshabilitado
 }
 
 function getCurrentSection() {
-    const sections = document.querySelectorAll('section');
-    let currentSection = sections[0];
-    
-    sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-            currentSection = section;
-        }
-    });
-    
-    return currentSection;
+    return; // Deshabilitado
 }
 
 // ============================================
@@ -995,13 +981,13 @@ function initThemeToggle() {
 }
 
 // ============================================
-// INICIALIZACIÓN FINAL
+// INICIALIZACIÓN FINAL - SIN SCROLL AUTOMÁTICO
 // ============================================
 
-// Inicializar interacciones táctiles en dispositivos móviles
-if ('ontouchstart' in window) {
-    initTouchInteractions();
-}
+// NO inicializar interacciones táctiles que causan scroll automático
+// if ('ontouchstart' in window) {
+//     initTouchInteractions(); // DESHABILITADO
+// }
 
 // Inicializar tema
 initThemeToggle();
