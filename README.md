@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryan René Rojas Hernández - Ingeniero de Sistemas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                <span>Bryan Rojas</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#inicio" class="nav-link">Inicio</a></li>
+                <li><a href="#sobre-mi" class="nav-link">Sobre Mí</a></li>
+                <li><a href="#habilidades" class="nav-link">Habilidades</a></li>
+                <li><a href="#experiencia" class="nav-link">Experiencia</a></li>
+                <li><a href="#educacion" class="nav-link">Educación</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-particles"></div>
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="hero-avatar" data-aos="zoom-in" data-aos-delay="200">
+                <div class="avatar-ring"></div>
+                <div class="avatar-ring-2"></div>
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="400">
+                <span class="title-line">Bryan René</span>
+                <span class="title-line highlight">Rojas Hernández</span>
+            </h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="600">
+                Ingeniero de Sistemas y Computación
+            </p>
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="800">
+                Especialista en desarrollo web, análisis de datos y soluciones tecnológicas innovadoras
+            </p>
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="1000">
+                <a href="#contacto" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i>
+                    Contáctame
+                </a>
+                <a href="#sobre-mi" class="btn btn-outline">
+                    <i class="fas fa-user"></i>
+                    Conóceme
+                </a>
+            </div>
+            <div class="hero-scroll" data-aos="fade-in" data-aos-delay="1200">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+        <div class="hero-bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+    </section>
+
+    <!-- Sobre Mí -->
+    <section id="sobre-mi" class="about">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Sobre Mí</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right" data-aos-delay="200">
+                    <div class="about-card">
+                        <div class="card-header">
+                            <i class="fas fa-user-graduate"></i>
+                            <h3>Mi Perfil</h3>
+                        </div>
+                        <p>
+                            Ingeniero de Sistemas último semestre, con enfoque analítico y creativo para el diseño web, 
+                            desarrollo de análisis de datos con visión coherente y comprensiva de los sistemas. 
+                            Experiencia en coordinación de proyectos educativos y desarrollo de soluciones tecnológicas 
+                            aplicadas a problemas reales.
+                        </p>
+                    </div>
+                </div>
+                <div class="about-stats" data-aos="fade-left" data-aos-delay="400">
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-number" data-target="15">0</div>
+                        <div class="stat-label">Proyectos</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="600">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-number" data-target="2">0</div>
+                        <div class="stat-label">Años Experiencia</div>
+                    </div>
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="700">
+                        <div class="stat-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="stat-number" data-target="3">0</div>
+                        <div class="stat-label">Certificaciones</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Habilidades -->
+    <section id="habilidades" class="skills">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Habilidades</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Competencias técnicas y blandas que domino</p>
+            </div>
+            
+            <!-- Habilidades Blandas -->
+            <div class="skills-category" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="category-title">
+                    <i class="fas fa-users"></i>
+                    Habilidades Blandas
+                </h3>
+                <div class="skills-grid soft-skills">
+                    <div class="skill-card" data-aos="flip-left" data-aos-delay="300">
+                        <div class="skill-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Trabajo en Equipo</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="95"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-left" data-aos-delay="400">
+                        <div class="skill-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4>Aprendizaje Autónomo</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-left" data-aos-delay="500">
+                        <div class="skill-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>Responsabilidad</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="98"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-left" data-aos-delay="600">
+                        <div class="skill-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Resilencia</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-left" data-aos-delay="700">
+                        <div class="skill-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4>Proactivo</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="92"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Habilidades Técnicas -->
+            <div class="skills-category" data-aos="fade-up" data-aos-delay="800">
+                <h3 class="category-title">
+                    <i class="fas fa-cogs"></i>
+                    Habilidades Técnicas
+                </h3>
+                <div class="skills-grid tech-skills">
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="900">
+                        <div class="skill-icon">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <h4>Java & C++</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="80"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1000">
+                        <div class="skill-icon">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h4>Python</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="85"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1100">
+                        <div class="skill-icon">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <h4>HTML & CSS</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="90"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1200">
+                        <div class="skill-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>MySQL & SQLite</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="75"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1300">
+                        <div class="skill-icon">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h4>Blender 3D</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="70"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1400">
+                        <div class="skill-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h4>Machine Learning</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="78"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1500">
+                        <div class="skill-icon">
+                            <i class="fab fa-microsoft"></i>
+                        </div>
+                        <h4>Microsoft Office</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="88"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-aos="flip-right" data-aos-delay="1600">
+                        <div class="skill-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h4>Inglés A2</h4>
+                        <div class="skill-progress">
+                            <div class="progress-bar" data-width="60"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiencia -->
+    <section id="experiencia" class="experience">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Experiencia</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">Mi trayectoria profesional y académica</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+                    <div class="timeline-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge">Laboral</div>
+                        <h3>Coordinador de CPV - Área de Diplomado</h3>
+                        <h4>Universidad de Cataluña</h4>
+                        <span class="timeline-date">Nov 2022 - Feb 2024</span>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Emisión y gestión de diplomados</li>
+                            <li><i class="fas fa-check"></i> Construcción de diplomados utilizando HTML y CSS</li>
+                            <li><i class="fas fa-check"></i> Uso de Excel avanzado para optimización de procesos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
+                    <div class="timeline-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-badge academic">Académico</div>
+                        <h3>Estación Meteorológica con modelos 3D</h3>
+                        <h4>Udec</h4>
+                        <span class="timeline-date">Ago 2024 - May 2025</span>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Modelado de piezas en Blender</li>
+                            <li><i class="fas fa-check"></i> Programación con Python, TensorFlow y LSTM</li>
+                            <li><i class="fas fa-check"></i> Predicción de microclima</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educación -->
+    <section id="educacion" class="education">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Educación</h2>
+                <div class="section-line"></div>
+            </div>
+            
+            <div class="education-grid">
+                <div class="education-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Ingeniería de Sistemas y Computación</h3>
+                    <h4>Universidad de Cundinamarca</h4>
+                    <span class="education-status">Último Semestre</span>
+                </div>
+                
+                <div class="education-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="education-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Seguridad Informática IPV4 Y IPV6</h3>
+                    <h4>Universidad de Cundinamarca</h4>
+                    <span class="education-status">Certificado</span>
+                </div>
+                
+                <div class="education-card" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="education-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Técnico en Sistemas</h3>
+                    <h4>SENA</h4>
+                    <span class="education-status">2019-2020</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="contact">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Contacto</h2>
+                <div class="section-line"></div>
+                <p class="section-subtitle">¿Interesado en trabajar conmigo?</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right" data-aos-delay="200">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Ubicación</h4>
+                            <p>Cra 14 #9D-15 Mosquera, Cundinamarca</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>brrojas.h14@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Teléfono</h4>
+                            <p>3114468793</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="references" data-aos="fade-left" data-aos-delay="400">
+                    <h3>Referencias</h3>
+                    <div class="reference-card">
+                        <div class="reference-header">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <h4>Carolina Gutiérrez Alarcón</h4>
+                                <span>Ingeniero Financiera</span>
+                            </div>
+                        </div>
+                        <p><i class="fas fa-phone"></i> 3108139218</p>
+                        <span class="reference-type">Personal</span>
+                    </div>
+                    
+                    <div class="reference-card">
+                        <div class="reference-header">
+                            <i class="fas fa-briefcase"></i>
+                            <div>
+                                <h4>Jeisson Arias Cusguen</h4>
+                                <span>Administrador de Empresas</span>
+                            </div>
+                        </div>
+                        <p><i class="fas fa-phone"></i> 3146657155</p>
+                        <span class="reference-type">Laboral</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Bryan René Rojas Hernández. Todos los derechos reservados.</p>
+                <div class="footer-social">
+                    <a href="mailto:brrojas.h14@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="tel:3114468793"><i class="fas fa-phone"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
