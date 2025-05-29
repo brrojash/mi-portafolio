@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 </head>
 <body>
     <!-- Navegación -->
@@ -35,23 +36,23 @@
     <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="hero-particles"></div>
-        <div class="hero-content">
-            <div class="hero-avatar">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <div class="hero-avatar" data-aos="zoom-in" data-aos-delay="200">
                 <div class="avatar-ring"></div>
                 <div class="avatar-ring-2"></div>
                 <i class="fas fa-user-tie"></i>
             </div>
-            <h1 class="hero-title">
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="400">
                 <span class="title-line">Bryan René</span>
                 <span class="title-line highlight">Rojas Hernández</span>
             </h1>
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="600">
                 Ingeniero de Sistemas y Computación
             </p>
-            <p class="hero-description">
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="800">
                 Especialista en desarrollo web, análisis de datos y soluciones tecnológicas innovadoras
             </p>
-            <div class="hero-buttons">
+            <div class="hero-buttons" data-aos="fade-up" data-aos-delay="1000">
                 <button id="downloadCV" class="btn btn-primary">
                     <i class="fas fa-download"></i>
                     Descargar CV
@@ -63,26 +64,26 @@
                         <i class="fas fa-chevron-down dropdown-arrow"></i>
                     </button>
                     <div class="dropdown-menu" id="contactDropdown">
-                        <a href="https://wa.me/573114468793?text=Hola%20Bryan,%20vi%20tu%20CV%20y%20me%20interesa%20contactarte" target="_blank" class="dropdown-item">
+                        <a href="https://wa.me/573114468793?text=Hola%20Bryan,%20vi%20tu%20CV%20y%20me%20interesa%20contactarte" target="_blank" class="dropdown-item" data-platform="whatsapp">
                             <i class="fab fa-whatsapp"></i>
-                            WhatsApp
+                            <span>WhatsApp</span>
                         </a>
-                        <a href="mailto:brrojas.h14@gmail.com?subject=Contacto%20desde%20tu%20CV%20Web" class="dropdown-item">
+                        <a href="mailto:brrojas.h14@gmail.com?subject=Contacto%20desde%20tu%20CV%20Web" class="dropdown-item" data-platform="email">
                             <i class="fas fa-envelope"></i>
-                            Email
+                            <span>Email</span>
                         </a>
-                        <a href="https://www.linkedin.com/in/bryan-rojas-2a2935368/" target="_blank" class="dropdown-item">
+                        <a href="https://www.linkedin.com/in/bryan-rojas-2a2935368/" target="_blank" class="dropdown-item" data-platform="linkedin">
                             <i class="fab fa-linkedin"></i>
-                            LinkedIn
+                            <span>LinkedIn</span>
                         </a>
-                        <a href="https://github.com/brrojash" target="_blank" class="dropdown-item">
+                        <a href="https://github.com/brrojash" target="_blank" class="dropdown-item" data-platform="github">
                             <i class="fab fa-github"></i>
-                            GitHub
+                            <span>GitHub</span>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="hero-scroll">
+            <div class="hero-scroll" data-aos="fade-in" data-aos-delay="1200">
                 <i class="fas fa-chevron-down"></i>
             </div>
         </div>
@@ -96,12 +97,12 @@
     <!-- Sobre Mí -->
     <section id="sobre-mi" class="about">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title">Sobre Mí</h2>
                 <div class="section-line"></div>
             </div>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text" data-aos="fade-right" data-aos-delay="200">
                     <div class="about-card">
                         <div class="card-header">
                             <i class="fas fa-user-graduate"></i>
@@ -115,22 +116,22 @@
                         </p>
                     </div>
                 </div>
-                <div class="about-stats">
-                    <div class="stat-item">
+                <div class="about-stats" data-aos="fade-left" data-aos-delay="400">
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="500">
                         <div class="stat-icon">
                             <i class="fas fa-code"></i>
                         </div>
                         <div class="stat-number" data-target="15">0</div>
                         <div class="stat-label">Proyectos</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="600">
                         <div class="stat-icon">
                             <i class="fas fa-trophy"></i>
                         </div>
                         <div class="stat-number" data-target="2">0</div>
                         <div class="stat-label">Años Experiencia</div>
                     </div>
-                    <div class="stat-item">
+                    <div class="stat-item" data-aos="zoom-in" data-aos-delay="700">
                         <div class="stat-icon">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
@@ -377,12 +378,12 @@
     </section>
 
     <!-- Contacto -->
-    <section id="contacto" class="contact">
+    <section id="contacto" class="contact contact-force-blue">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Contacto</h2>
+                <h2 class="section-title contact-white-text">Contacto</h2>
                 <div class="section-line"></div>
-                <p class="section-subtitle">¿Interesado en trabajar conmigo?</p>
+                <p class="section-subtitle contact-white-text">¿Interesado en trabajar conmigo?</p>
             </div>
             
             <div class="contact-content">
@@ -392,8 +393,8 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Ubicación</h4>
-                            <p>Cra 14 #9D-15 Mosquera, Cundinamarca</p>
+                            <h4 class="contact-white-text">Ubicación</h4>
+                            <p class="contact-white-text">Cra 14 #9D-15 Mosquera, Cundinamarca</p>
                         </div>
                     </div>
                     
@@ -402,8 +403,8 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>brrojas.h14@gmail.com</p>
+                            <h4 class="contact-white-text">Email</h4>
+                            <p class="contact-white-text">brrojas.h14@gmail.com</p>
                         </div>
                     </div>
                     
@@ -412,36 +413,36 @@
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Teléfono</h4>
-                            <p>3114468793</p>
+                            <h4 class="contact-white-text">Teléfono</h4>
+                            <p class="contact-white-text">3114468793</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="references" data-aos="fade-left" data-aos-delay="400">
-                    <h3>Referencias</h3>
+                    <h3 class="contact-white-text">Referencias</h3>
                     <div class="reference-card">
                         <div class="reference-header">
                             <i class="fas fa-user"></i>
                             <div>
-                                <h4>Carolina Gutiérrez Alarcón</h4>
-                                <span>Ingeniero Financiera</span>
+                                <h4 class="contact-white-text">Carolina Gutiérrez Alarcón</h4>
+                                <span class="contact-white-text">Ingeniero Financiera</span>
                             </div>
                         </div>
-                        <p><i class="fas fa-phone"></i> 3108139218</p>
-                        <span class="reference-type">Personal</span>
+                        <p class="contact-white-text"><i class="fas fa-phone"></i> 3108139218</p>
+                        <span class="reference-type contact-white-text">Personal</span>
                     </div>
                     
                     <div class="reference-card">
                         <div class="reference-header">
                             <i class="fas fa-briefcase"></i>
                             <div>
-                                <h4>Jeisson Arias Cusguen</h4>
-                                <span>Administrador de Empresas</span>
+                                <h4 class="contact-white-text">Jeisson Arias Cusguen</h4>
+                                <span class="contact-white-text">Administrador de Empresas</span>
                             </div>
                         </div>
-                        <p><i class="fas fa-phone"></i> 3146657155</p>
-                        <span class="reference-type">Laboral</span>
+                        <p class="contact-white-text"><i class="fas fa-phone"></i> 3146657155</p>
+                        <span class="reference-type contact-white-text">Laboral</span>
                     </div>
                 </div>
             </div>
@@ -461,6 +462,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>

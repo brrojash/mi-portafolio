@@ -1,120 +1,96 @@
-/* PREVENIR EFECTOS BLANQUECINOS AL HACER SCROLL - PERO PERMITIR FONDOS */
+/* PROTECCIONES CONTRA EFECTOS BLANQUECINOS CON AOS */
 body, html {
     background: #f8fafc !important;
 }
 
-/* Asegurar que todas las secciones mantengan opacidad completa EXCEPTO el hero */
-section:not(.hero) {
-    opacity: 1 !important;
-    transform: none !important;
-    background: transparent !important;
-    transition: none !important;
-}
-
-/* HERO SECTION - MANTENER FONDO AZUL */
+/* HERO CON ESPACIO SUFICIENTE PARA DROPDOWN */
 .hero {
     opacity: 1 !important;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
+    padding-bottom: 100px;
 }
 
-/* Eliminar cualquier overlay automático EXCEPTO en hero */
-section:not(.hero)::before, 
-section:not(.hero)::after {
-    background: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+/* Asegurar que no haya capas adicionales que reduzcan el contraste del hero */
+.hero::before, .hero::after {
+    display: none !important;
 }
 
-/* Forzar visibilidad completa en elementos principales */
-.container, .about, .skills, .experience, .education, .contact {
+/* Permitir AOS en otras secciones pero no en hero */
+section:not(.hero) {
+    background: transparent !important;
+}
+
+/* Eliminar animaciones CSS personalizadas ya que usamos AOS */
+.hero-content,
+.hero-avatar,
+.hero-buttons,
+.hero-scroll {
+    animation: none !important;
+}
+
+.hero-title,
+.hero-subtitle,
+.hero-description {
+    animation: none !important;
     opacity: 1 !important;
-    visibility: visible !important;
-    transform: none !important;
-    transition: none !important;
 }
 
-/* ANIMACIONES DE ENTRADA PERSONALIZADAS (sin AOS) */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hero-title .title-line {
+    animation: none !important;
+    opacity: 1 !important;
 }
 
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* Limpiar otras animaciones personalizadas */
+.about-card,
+.about-stats,
+.skill-card,
+.timeline-item,
+.education-card {
+    animation: none !important;
 }
 
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Aplicar animaciones de entrada */
-.hero-content {
-    animation: fadeInUp 1s ease-out 0.2s both;
-}
-
-.about-card {
-    animation: fadeInLeft 0.8s ease-out 0.4s both;
-}
-
-.about-stats {
-    animation: fadeInRight 0.8s ease-out 0.6s both;
-}
-
+/* RESTAURAR ANIMACIONES SEGURAS DE HOVER (compatibles con AOS) */
 .skill-card {
-    animation: scaleIn 0.6s ease-out both;
+    transition: all 0.3s ease !important;
 }
 
-.skill-card:nth-child(1) { animation-delay: 0.1s; }
-.skill-card:nth-child(2) { animation-delay: 0.2s; }
-.skill-card:nth-child(3) { animation-delay: 0.3s; }
-.skill-card:nth-child(4) { animation-delay: 0.4s; }
-.skill-card:nth-child(5) { animation-delay: 0.5s; }
-
-.timeline-item {
-    animation: fadeInUp 0.8s ease-out both;
+.skill-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2) !important;
 }
 
-.timeline-item:nth-child(1) { animation-delay: 0.2s; }
-.timeline-item:nth-child(2) { animation-delay: 0.4s; }
+.experience-item {
+    transition: all 0.3s ease !important;
+}
+
+.experience-item:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
 
 .education-card {
-    animation: scaleIn 0.6s ease-out both;
+    transition: all 0.3s ease !important;
 }
 
-.education-card:nth-child(1) { animation-delay: 0.1s; }
-.education-card:nth-child(2) { animation-delay: 0.3s; }
-.education-card:nth-child(3) { animation-delay: 0.5s; }
+.education-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.stat-item {
+    transition: all 0.3s ease !important;
+}
+
+.stat-item:hover {
+    transform: translateY(-10px) scale(1.05) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
+}
 .skill-card {
     opacity: 1 !important;
     transform: none !important;
@@ -227,21 +203,19 @@ body::before, body::after, html::before, html::after {
 /* ========================================
    NAVEGACIÓN
 ======================================== */
-/* NAVBAR SIEMPRE VISIBLE Y ESTABLE */
+/* NAVBAR CON TRANSICIÓN ELEGANTE */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: #1e293b;
+    background: transparent;
     z-index: 1000;
     padding: 15px 0;
-    transition: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
 }
 
-/* Eliminar diferencia entre estados para evitar transiciones */
 .navbar.scrolled {
     background: #1e293b;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
@@ -455,9 +429,10 @@ body::before, body::after, html::before, html::after {
     gap: 20px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 60px;
+    margin-bottom: 120px;
     align-items: center;
-    animation: fadeInUp 1s ease-out 1s both;
+    position: relative;
+    z-index: 10;
 }
 
 .btn {
@@ -495,6 +470,8 @@ body::before, body::after, html::before, html::after {
     border: 2px solid rgba(255, 255, 255, 0.6);
     font-weight: 700;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
 }
 
 .btn-outline:hover {
@@ -504,13 +481,11 @@ body::before, body::after, html::before, html::after {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ========================================
-   DROPDOWN DE CONTACTO
-======================================== */
+/* DROPDOWN SOLUCIONADO COMPLETAMENTE - VERSIÓN FINAL */
 .contact-dropdown {
     position: relative;
     display: inline-block;
-    z-index: 1001;
+    z-index: 99999;
 }
 
 .dropdown-arrow {
@@ -525,19 +500,21 @@ body::before, body::after, html::before, html::after {
 
 .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 25px);
     left: 50%;
-    transform: translateX(-50%) translateY(15px);
+    transform: translateX(-50%);
     background: #1e293b;
-    border-radius: var(--border-radius);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    min-width: 250px;
-    padding: 8px 0;
+    border-radius: 15px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    width: 300px;
+    padding: 15px 0;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1002;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999999;
+    max-height: none;
+    overflow: visible;
 }
 
 .dropdown-menu.show {
@@ -549,35 +526,39 @@ body::before, body::after, html::before, html::after {
 .dropdown-item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 15px 20px;
-    color: rgba(255, 255, 255, 0.9);
+    gap: 18px;
+    padding: 18px 28px;
+    color: rgba(255, 255, 255, 0.95);
     text-decoration: none;
-    transition: var(--transition-fast);
-    border-radius: 8px;
-    margin: 4px 8px;
+    transition: all 0.25s ease;
     font-weight: 600;
-    font-size: 0.95rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.05rem;
+    border: none;
+    margin: 0;
+    position: relative;
+    min-height: 60px;
 }
 
-.dropdown-item:last-child {
-    border-bottom: none;
-    margin-bottom: 8px;
+.dropdown-item:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .dropdown-item:first-child {
-    margin-top: 8px;
+    border-radius: 13px 13px 0 0;
+}
+
+.dropdown-item:last-child {
+    border-radius: 0 0 13px 13px;
 }
 
 .dropdown-item:hover {
     background: var(--gradient-primary);
     color: white;
-    transform: translateX(5px);
-    border-color: transparent;
+    transform: translateX(10px);
+    padding-left: 38px;
 }
 
-.dropdown-item:first-child:hover {
+.dropdown-item:nth-child(1):hover {
     background: linear-gradient(135deg, #25d366, #128c7e);
 }
 
@@ -593,24 +574,26 @@ body::before, body::after, html::before, html::after {
     background: linear-gradient(135deg, #333, #24292e);
 }
 
+.dropdown-item i {
+    font-size: 1.5rem;
+    width: 28px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Flecha superior más visible */
 .dropdown-menu::before {
     content: '';
     position: absolute;
-    top: -8px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
     height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid #1e293b;
-}
-
-.dropdown-item i {
-    font-size: 1.3rem;
-    width: 22px;
-    text-align: center;
-    flex-shrink: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid #1e293b;
+    z-index: 100000;
 }
 
 /* Animación del botón de descarga */
@@ -650,11 +633,12 @@ body::before, body::after, html::before, html::after {
 
 .hero-scroll {
     position: absolute;
-    bottom: 30px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     animation: bounce 2s infinite, fadeInUp 1.5s ease-out 1.2s both;
     color: rgba(255, 255, 255, 0.8);
+    z-index: 5;
 }
 
 .hero-scroll i {
@@ -1189,16 +1173,113 @@ section {
 }
 
 /* ========================================
-   CONTACTO
+   CONTACTO - SOLUCIÓN RADICAL FORZADA
 ======================================== */
-.contact {
-    background: var(--dark-color);
-    color: white;
+
+/* FORZAR FONDO AZUL CON MÁXIMA ESPECIFICIDAD */
+section#contacto.contact.contact-force-blue,
+section.contact.contact-force-blue,
+.contact-force-blue,
+#contacto {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background-color: #667eea !important;
+    color: white !important;
+    position: relative !important;
+    min-height: 100vh !important;
+    padding: 100px 0 !important;
 }
 
+/* FORZAR TEXTO BLANCO CON MÁXIMA ESPECIFICIDAD */
+.contact-white-text,
+.contact .contact-white-text,
+section.contact .contact-white-text,
+section#contacto .contact-white-text,
+.contact-force-blue .contact-white-text,
+.contact h2,
+.contact h3, 
+.contact h4,
+.contact p,
+.contact span,
+.contact div {
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ELIMINAR CUALQUIER FONDO QUE INTERFIERA */
+section#contacto::before,
+section#contacto::after,
+.contact::before,
+.contact::after,
+.contact-force-blue::before,
+.contact-force-blue::after {
+    display: none !important;
+    background: none !important;
+    content: none !important;
+}
+
+/* FORZAR ESTILOS ESPECÍFICOS EN ELEMENTOS */
 .contact .section-title,
 .contact .section-subtitle {
-    color: white;
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.contact .section-line {
+    background: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ITEMS DE CONTACTO */
+.contact .contact-item {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+.contact .contact-item * {
+    color: white !important;
+}
+
+.contact .contact-details h4,
+.contact .contact-details p {
+    color: white !important;
+}
+
+/* TARJETAS DE REFERENCIAS */
+.contact .reference-card {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.contact .reference-card *,
+.contact .reference-card h4,
+.contact .reference-card p,
+.contact .reference-card span {
+    color: white !important;
+}
+
+.contact .references h3 {
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ICONOS */
+.contact .contact-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+}
+
+.contact .contact-icon i {
+    color: white !important;
+}
+
+.contact .reference-header i {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    color: white !important;
+}
+
+/* TIPO DE REFERENCIA */
+.contact .reference-type {
+    background: rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
 }
 
 .contact-content {
@@ -1392,7 +1473,8 @@ section {
     .hero-buttons {
         flex-direction: column;
         align-items: center;
-        gap: 15px;
+        gap: 20px;
+        margin-bottom: 140px;
     }
     
     .btn {
@@ -1404,6 +1486,7 @@ section {
     .contact-dropdown {
         width: 100%;
         max-width: 280px;
+        z-index: 99999;
     }
     
     .dropdown-menu {
@@ -1482,16 +1565,26 @@ section {
         max-width: 250px;
     }
     
+    .contact-dropdown {
+        z-index: 99999;
+    }
+    
     .dropdown-menu {
         position: relative;
-        width: 100%;
+        width: calc(100vw - 40px);
+        max-width: 350px;
         left: 0;
         transform: none;
-        margin-top: 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        margin: 20px auto 0 auto;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
         background: #1e293b;
-        min-width: auto;
-        padding: 12px 0;
+        padding: 20px 0;
+        border-radius: 15px;
+        z-index: 99999;
+    }
+    
+    .dropdown-menu.show {
+        transform: none;
     }
     
     .dropdown-menu::before {
@@ -1499,9 +1592,19 @@ section {
     }
     
     .dropdown-item {
-        padding: 18px 24px;
-        margin: 6px 12px;
-        font-size: 1rem;
+        padding: 22px 32px;
+        font-size: 1.15rem;
+        gap: 22px;
+        min-height: 70px;
+    }
+    
+    .dropdown-item i {
+        font-size: 1.6rem;
+        width: 32px;
+    }
+    
+    .dropdown-item:hover {
+        padding-left: 42px;
     }
     
     .dropdown-menu.show {

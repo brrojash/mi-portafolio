@@ -1,62 +1,59 @@
-// Función para activar animaciones de entrada al hacer scroll (sin efectos blanquecinos)
-function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll('.skill-card, .experience-item, .education-card, .timeline-item');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-    
-    animatedElements.forEach(element => {
-        observer.observe(element);
-    });
-}
-
-// Función para eliminar cualquier efecto blanquecino residual MANTENIENDO el fondo del hero
-function removeWhitishEffects() {
-    // Eliminar cualquier overlay o capa adicional (EXCEPTO en hero)
-    const overlays = document.querySelectorAll('[class*="overlay"]:not(.hero *), [class*="backdrop"]:not(.hero *), [class*="filter"]:not(.hero *)');
-    overlays.forEach(overlay => overlay.remove());
-    
-    // Forzar estilos en elementos principales (EXCEPTO hero)
-    const mainElements = document.querySelectorAll('section:not(.hero), .container:not(.hero .container)');
-    mainElements.forEach(element => {
-        element.style.opacity = '1';
-        element.style.visibility = 'visible';
-        if (!element.classList.contains('hero')) {
-            element.style.background = 'transparent';
-        }
-        element.style.backdropFilter = 'none';
-        element.style.webkitBackdropFilter = 'none';
-    });
-    
-    // ASEGURAR que el hero mantenga su fondo azul
+// Función para eliminar efectos blanquecinos MANTENIENDO AOS y protegiendo hero Y contacto
+function removeWhitishEffectsWithAOS() {
+    // PROTEGER el hero específicamente
     const hero = document.querySelector('.hero');
     if (hero) {
         hero.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
         hero.style.opacity = '1';
         hero.style.visibility = 'visible';
     }
+    
+    // PROTEGER la sección de contacto específicamente
+    const contact = document.querySelector('.contact');
+    if (contact) {
+        contact.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        contact.style.color = 'white';
+        contact.style.opacity = '1';
+        contact.style.visibility = 'visible';
+        
+        // Forzar color blanco en todos los elementos de contacto
+        const contactElements = contact.querySelectorAll('h2, h3, h4, p, span');
+        contactElements.forEach(element => {
+            element.style.color = 'white';
+        });
+    }
+    
+    // Permitir que AOS funcione en otras secciones (excepto hero y contacto)
+    const otherSections = document.querySelectorAll('section:not(.hero):not(.contact)');
+    otherSections.forEach(section => {
+        // Solo limpiar si la sección no tiene animaciones AOS activas
+        if (!section.classList.contains('aos-animate')) {
+            section.style.opacity = '1';
+            section.style.visibility = 'visible';
+        }
+    });
 }
 
-// Ejecutar limpieza al cargar la página
+// Ejecutar protección al cargar la página
 window.addEventListener('load', function() {
-    removeWhitishEffects();
-    console.log('Efectos blanquecinos eliminados completamente');
+    removeWhitishEffectsWithAOS();
+    protectHeroBackground();
+    console.log('Página cargada - AOS funcionando, hero y contacto protegidos');
 });
 
-// Ejecutar limpieza también al hacer scroll (por si acaso)
+// Ejecutar protección también durante el scroll (con throttle)
 let scrollTimeout;
 window.addEventListener('scroll', function() {
     clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(removeWhitishEffects, 100);
+    scrollTimeout = setTimeout(() => {
+        protectHeroBackground();
+        // También proteger contacto durante scroll
+        const contact = document.querySelector('.contact');
+        if (contact) {
+            contact.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            contact.style.color = 'white';
+        }
+    }, 100);
 });
 // DROPDOWN DE CONTACTO Y DESCARGA CV
 // ============================================
@@ -83,7 +80,7 @@ function initContactDropdown() {
         const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
         dropdownItems.forEach((item, index) => {
             item.style.opacity = '0';
-            item.style.transform = 'translateY(-10px)';
+            item.style.transform = 'translateY(-15px)';
             item.style.transition = `all 0.3s ease ${index * 0.1}s`;
         });
     }
@@ -102,13 +99,39 @@ function initContactDropdown() {
         dropdown.classList.add('show');
         contactDropdownContainer.classList.add('active');
         
-        // Animar items
+        // Asegurar z-index súper alto
+        dropdown.style.zIndex = '999999';
+        contactDropdownContainer.style.zIndex = '999999';
+        dropdown.style.position = 'absolute';
+        
+        // Verificar que el dropdown tenga suficiente espacio
+        const rect = contactBtn.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const dropdownHeight = 280; // Altura aproximada del dropdown
+        
+        // Si no hay suficiente espacio abajo, ajustar posición
+        if (rect.bottom + dropdownHeight > viewportHeight) {
+            dropdown.style.top = 'auto';
+            dropdown.style.bottom = 'calc(100% + 25px)';
+        } else {
+            dropdown.style.top = 'calc(100% + 25px)';
+            dropdown.style.bottom = 'auto';
+        }
+        
+        // Animar items individualmente
         const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
         dropdownItems.forEach((item, index) => {
             setTimeout(() => {
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
-            }, index * 50);
+            }, index * 80);
+        });
+        
+        console.log('Dropdown abierto - 4 elementos:', dropdownItems.length);
+        console.log('Posición dropdown:', {
+            top: dropdown.style.top,
+            bottom: dropdown.style.bottom,
+            zIndex: dropdown.style.zIndex
         });
     }
     
@@ -116,11 +139,15 @@ function initContactDropdown() {
         dropdown.classList.remove('show');
         contactDropdownContainer.classList.remove('active');
         
+        // Reset estilos de posición
+        dropdown.style.top = 'calc(100% + 25px)';
+        dropdown.style.bottom = 'auto';
+        
         // Reset animation
         const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
         dropdownItems.forEach(item => {
             item.style.opacity = '0';
-            item.style.transform = 'translateY(-10px)';
+            item.style.transform = 'translateY(-15px)';
         });
     }
 }
@@ -195,8 +222,84 @@ function downloadPDF() {
 // INICIALIZACIÓN Y CONFIGURACIÓN
 // ============================================
 
+// INYECTAR CSS CRÍTICO DIRECTAMENTE EN EL HEAD
+function injectCriticalCSS() {
+    const criticalCSS = `
+        /* ESTILOS CRÍTICOS INYECTADOS VIA JAVASCRIPT */
+        #contacto,
+        section#contacto,
+        .contact,
+        .contact-force-blue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background-color: #667eea !important;
+            color: white !important;
+        }
+        
+        #contacto *,
+        section#contacto *,
+        .contact *,
+        .contact-force-blue * {
+            color: white !important;
+        }
+        
+        #contacto h1, #contacto h2, #contacto h3, #contacto h4, #contacto h5, #contacto h6,
+        #contacto p, #contacto span, #contacto div, #contacto a,
+        .contact h1, .contact h2, .contact h3, .contact h4, .contact h5, .contact h6,
+        .contact p, .contact span, .contact div, .contact a {
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .contact-white-text {
+            color: white !important;
+        }
+    `;
+    
+    // Crear elemento style
+    const styleElement = document.createElement('style');
+    styleElement.textContent = criticalCSS;
+    styleElement.id = 'critical-contact-styles';
+    
+    // Insertarlo al final del head para máxima prioridad
+    document.head.appendChild(styleElement);
+    
+    console.log('CSS crítico inyectado');
+}
+
+// EJECUTAR INYECCIÓN DE CSS INMEDIATAMENTE
+injectCriticalCSS();
+
+// También ejecutar después de que se cargue AOS
+setTimeout(injectCriticalCSS, 100);
+setTimeout(injectCriticalCSS, 500);
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar funcionalidades básicas sin efectos problemáticos
+    // Inyectar CSS crítico primero
+    injectCriticalCSS();
+    
+    // FORZAR FONDO DE CONTACTO INMEDIATAMENTE
+    forceContactBackground();
+    
+    // Inicializar AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-out-cubic',
+        once: true,
+        mirror: false,
+        offset: 120,
+        delay: 0
+    });
+
+    // PROTEGER INMEDIATAMENTE las secciones críticas
+    protectHeroBackground();
+    
+    // Forzar fondo de contacto múltiples veces
+    setTimeout(forceContactBackground, 100);
+    setTimeout(forceContactBackground, 500);
+    setTimeout(forceContactBackground, 1000);
+    setTimeout(forceContactBackground, 2000);
+
+    // Inicializar funcionalidades
     initNavigation();
     initCounters();
     initProgressBars();
@@ -205,19 +308,160 @@ document.addEventListener('DOMContentLoaded', function() {
     initTypingEffect();
     initContactDropdown();
     initDownloadCV();
-    initScrollAnimations(); // Nueva función de animaciones seguras
+    protectHeroBackground();
     
-    console.log('CV Website cargado correctamente - Con fondo azul y animaciones mejoradas');
+    console.log('CV Website cargado - Contacto forzado a azul');
 });
+
+// FUNCIÓN ESPECÍFICA PARA FORZAR FONDO DE CONTACTO
+function forceContactBackground() {
+    // Buscar la sección de contacto de múltiples maneras
+    const contactSelectors = [
+        '#contacto',
+        '.contact',
+        'section.contact',
+        'section[id="contacto"]',
+        '.contact-force-blue'
+    ];
+    
+    contactSelectors.forEach(selector => {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(contact => {
+            if (contact) {
+                // Aplicar fondo azul de múltiples maneras
+                contact.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                contact.style.backgroundColor = '#667eea';
+                contact.style.backgroundImage = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                contact.style.color = 'white';
+                contact.style.setProperty('background', 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', 'important');
+                contact.style.setProperty('color', 'white', 'important');
+                
+                // Forzar todos los elementos hijos a blanco
+                const allElements = contact.querySelectorAll('*');
+                allElements.forEach(element => {
+                    element.style.setProperty('color', 'white', 'important');
+                    element.style.color = 'white';
+                });
+                
+                // Específicamente los elementos de texto
+                const textElements = contact.querySelectorAll('h1, h2, h3, h4, h5, h6, p, span, div, a');
+                textElements.forEach(element => {
+                    element.style.setProperty('color', 'white', 'important');
+                    element.style.color = 'white';
+                    element.style.textShadow = '0 1px 2px rgba(0, 0, 0, 0.3)';
+                });
+                
+                // Elementos con clases específicas
+                const whiteTextElements = contact.querySelectorAll('.contact-white-text');
+                whiteTextElements.forEach(element => {
+                    element.style.setProperty('color', 'white', 'important');
+                    element.style.color = 'white';
+                });
+                
+                console.log(`Fondo forzado en: ${selector}`);
+            }
+        });
+    });
+}
 
 // ============================================
 // NAVEGACIÓN Y MENÚ
 // ============================================
 
+// Función para proteger el fondo del hero Y contacto contra efectos blanquecinos
+function protectHeroBackground() {
+    const hero = document.querySelector('.hero');
+    const contact = document.querySelector('.contact');
+    
+    if (hero) {
+        // Forzar el fondo del hero permanentemente
+        const originalBackground = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        hero.style.background = originalBackground;
+        
+        // Observador para proteger el fondo del hero
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    const currentBg = hero.style.background;
+                    if (!currentBg.includes('linear-gradient') || !currentBg.includes('#667eea')) {
+                        hero.style.background = originalBackground;
+                    }
+                }
+            });
+        });
+        
+        observer.observe(hero, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+    }
+    
+    if (contact) {
+        // Forzar el fondo del contacto permanentemente
+        const contactBackground = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        contact.style.background = contactBackground;
+        contact.style.color = 'white';
+        
+        // Forzar color blanco en todos los elementos hijos
+        const contactElements = contact.querySelectorAll('*');
+        contactElements.forEach(element => {
+            if (!element.classList.contains('contact-icon') && 
+                !element.classList.contains('reference-header')) {
+                element.style.color = 'white';
+            }
+        });
+        
+        // Observador para proteger el fondo del contacto
+        const contactObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+                    const currentBg = contact.style.background;
+                    if (!currentBg.includes('linear-gradient') || !currentBg.includes('#667eea')) {
+                        contact.style.background = contactBackground;
+                        contact.style.color = 'white';
+                    }
+                }
+            });
+        });
+        
+        contactObserver.observe(contact, {
+            attributes: true,
+            attributeFilter: ['style']
+        });
+    }
+    
+    // También proteger contra cambios por CSS cada segundo
+    setInterval(() => {
+        if (hero && hero.style.background !== 'linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%)') {
+            hero.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        }
+        if (contact && contact.style.background !== 'linear-gradient(135deg, rgb(102, 126, 234) 0%, rgb(118, 75, 162) 100%)') {
+            contact.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            contact.style.color = 'white';
+        }
+    }, 1000);
+}
+
 function initNavigation() {
+    const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
     
-    // Solo mantener funcionalidad de navegación, SIN efectos de scroll en navbar
+    // Restaurar efectos de navegación pero sin afectar el hero
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        
+        // Actualizar enlaces activos
+        updateActiveNavLink();
+        
+        // Proteger hero background durante scroll
+        protectHeroBackground();
+    });
+
+    // Agregar listeners a los enlaces de navegación
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -233,9 +477,30 @@ function initNavigation() {
             }
         });
     });
+}
+
+function updateActiveNavLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
     
-    // DESHABILITAR efectos de scroll en navbar que podrían causar efectos blanquecinos
-    // window.addEventListener('scroll', function() { ... }); // COMENTADO
+    let currentSection = '';
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.offsetHeight;
+        
+        if (window.scrollY >= sectionTop && 
+            window.scrollY < sectionTop + sectionHeight) {
+            currentSection = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+            link.classList.add('active');
+        }
+    });
 }
 
 function updateActiveNavLink() {
