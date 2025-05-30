@@ -58,15 +58,18 @@ window.addEventListener('scroll', function() {
 // DROPDOWN DE CONTACTO Y DESCARGA CV
 // ============================================
 
+// DROPDOWN SIMPLIFICADO Y ROBUSTO
 function initContactDropdown() {
     const contactBtn = document.getElementById('contactBtn');
     const dropdown = document.getElementById('contactDropdown');
     const contactDropdownContainer = document.querySelector('.contact-dropdown');
     
-    if (contactBtn && dropdown) {
+    if (contactBtn && dropdown && contactDropdownContainer) {
+        
+        // Toggle dropdown al hacer clic en el botón
         contactBtn.addEventListener('click', function(e) {
             e.stopPropagation();
-            e.preventDefault(); // Prevenir cualquier comportamiento de scroll
+            e.preventDefault();
             toggleDropdown();
         });
         
@@ -77,111 +80,83 @@ function initContactDropdown() {
             }
         });
         
-        // Cerrar dropdown al tocar fuera en móviles
-        document.addEventListener('touchstart', function(e) {
-            if (!contactDropdownContainer.contains(e.target) && dropdown.classList.contains('show')) {
+        // Cerrar dropdown con ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
                 closeDropdown();
             }
-        }, { passive: true });
+        });
         
-        // Prevenir scroll del body cuando el dropdown está abierto en móviles
-        function preventBodyScroll(prevent) {
+        // Cerrar dropdown en móviles al hacer scroll
+        window.addEventListener('scroll', function() {
             if (window.innerWidth <= 768) {
-                if (prevent) {
-                    document.body.style.overflow = 'hidden';
-                    document.body.style.position = 'fixed';
-                    document.body.style.width = '100%';
-                } else {
-                    document.body.style.overflow = '';
-                    document.body.style.position = '';
-                    document.body.style.width = '';
-                }
+                closeDropdown();
+            }
+        });
+        
+        // Prevenir cierre del dropdown al hacer clic dentro de él
+        dropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        
+        function toggleDropdown() {
+            const isOpen = dropdown.classList.contains('show');
+            
+            if (isOpen) {
+                closeDropdown();
+            } else {
+                openDropdown();
             }
         }
         
-        // Animación de entrada para cada item del dropdown
-        const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
-        dropdownItems.forEach((item, index) => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(-15px)';
-            item.style.transition = `all 0.3s ease ${index * 0.1}s`;
+        function openDropdown() {
+            // Agregar clases de estado
+            dropdown.classList.add('show');
+            contactDropdownContainer.classList.add('active');
             
-            // Prevenir scroll accidental en cada item
-            item.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-            }, { passive: true });
-        });
-    }
-    
-    function toggleDropdown() {
-        const isOpen = dropdown.classList.contains('show');
-        
-        if (isOpen) {
-            closeDropdown();
-        } else {
-            openDropdown();
-        }
-    }
-    
-    function openDropdown() {
-        dropdown.classList.add('show');
-        contactDropdownContainer.classList.add('active');
-        
-        // Prevenir scroll del body en móviles
-        if (window.innerWidth <= 768) {
-            document.body.style.overflow = 'hidden';
+            // Asegurar z-index alto
+            dropdown.style.zIndex = '99999';
+            contactDropdownContainer.style.zIndex = '99999';
+            
+            // Forzar reflow para asegurar que las transiciones funcionen
+            dropdown.offsetHeight;
+            
+            // Mejorar accesibilidad
+            contactBtn.setAttribute('aria-expanded', 'true');
+            
+            console.log('Dropdown abierto - 4 elementos visibles');
         }
         
-        // Asegurar z-index súper alto
-        dropdown.style.zIndex = '999999';
-        contactDropdownContainer.style.zIndex = '999999';
-        
-        // En móviles, posicionar como modal
-        if (window.innerWidth <= 768) {
-            dropdown.style.position = 'fixed';
-            dropdown.style.top = '50%';
-            dropdown.style.left = '50%';
-            dropdown.style.transform = 'translate(-50%, -50%)';
+        function closeDropdown() {
+            dropdown.classList.remove('show');
+            contactDropdownContainer.classList.remove('active');
+            
+            // Actualizar accesibilidad
+            contactBtn.setAttribute('aria-expanded', 'false');
+            
+            console.log('Dropdown cerrado');
         }
         
-        // Animar items individualmente
-        const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
-        dropdownItems.forEach((item, index) => {
-            setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateY(0)';
-            }, index * 80);
-        });
+        // Configurar accesibilidad inicial
+        contactBtn.setAttribute('aria-haspopup', 'true');
+        contactBtn.setAttribute('aria-expanded', 'false');
+        dropdown.setAttribute('role', 'menu');
         
-        console.log('Dropdown abierto - 4 elementos:', dropdownItems.length);
-    }
-    
-    function closeDropdown() {
-        dropdown.classList.remove('show');
-        contactDropdownContainer.classList.remove('active');
-        
-        // Restaurar scroll del body
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        
-        // Reset estilos de posición
-        if (window.innerWidth > 768) {
-            dropdown.style.position = 'absolute';
-            dropdown.style.top = 'calc(100% + 25px)';
-            dropdown.style.left = '50%';
-            dropdown.style.transform = 'translateX(-50%)';
-        }
-        
-        // Reset animation
+        // Agregar role a los items del dropdown
         const dropdownItems = dropdown.querySelectorAll('.dropdown-item');
         dropdownItems.forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(-15px)';
+            item.setAttribute('role', 'menuitem');
         });
+        
+        console.log('Dropdown inicializado correctamente con', dropdownItems.length, 'elementos');
+        
+    } else {
+        console.error('No se encontraron todos los elementos del dropdown');
+        console.error('contactBtn:', !!contactBtn);
+        console.error('dropdown:', !!dropdown);
+        console.error('container:', !!contactDropdownContainer);
     }
 }
-
 function initDownloadCV() {
     const downloadBtn = document.getElementById('downloadCV');
     
