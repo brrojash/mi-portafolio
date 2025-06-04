@@ -157,18 +157,18 @@ function initContactDropdown() {
         console.error('container:', !!contactDropdownContainer);
     }
 }
-function initDownloadCV() {
-    const downloadBtn = document.getElementById('downloadCV');
+function initdownloadHV() {
+    const downloadBtn = document.getElementById('downloadHV');
     
     if (downloadBtn) {
         downloadBtn.addEventListener('click', function() {
-            generateAndDownloadCV();
+            generateAnddownloadHV();
         });
     }
 }
 
-function generateAndDownloadCV() {
-    const downloadBtn = document.getElementById('downloadCV');
+function generateAnddownloadHV() {
+    const downloadBtn = document.getElementById('downloadHV');
     const originalHTML = downloadBtn.innerHTML;
     
     // Cambiar estado del botón
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScrolling();
     initTypingEffect();
     initContactDropdown();
-    initDownloadCV();
+    initdownloadHV();
     protectHeroBackground();
     
     console.log('CV Website cargado - Contacto forzado a azul');
