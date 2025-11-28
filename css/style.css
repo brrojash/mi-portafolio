@@ -1112,7 +1112,7 @@ section {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
+    z-index: 100;
     box-shadow: 0 0 0 8px white, var(--shadow-lg);
 }
 
@@ -1129,6 +1129,8 @@ section {
     box-shadow: var(--shadow-lg);
     border: 2px solid var(--gray-200);
     transition: var(--transition-normal);
+    position: relative;
+    z-index: 1;
 }
 
 .timeline-content:hover {
@@ -1441,8 +1443,8 @@ section#contacto.contact.contact-force-blue,
 section.contact.contact-force-blue,
 .contact-force-blue,
 #contacto {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-    background-color: #667eea !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #334155 100%) !important;
+    background-color: #1e3a8a !important;
     color: white !important;
     position: relative !important;
     min-height: 100vh !important;
