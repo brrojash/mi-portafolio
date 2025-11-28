@@ -6,7 +6,7 @@ body, html {
 /* HERO CON ESPACIO SUFICIENTE PARA DROPDOWN */
 .hero {
     opacity: 1 !important;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #334155 100%) !important;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -135,9 +135,9 @@ section:not(.hero) {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2) !important;
 }
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --accent-color: #f59e0b;
+    --primary-color: #1e3a8a;
+    --secondary-color: #334155;
+    --accent-color: #d4a574;
     --success-color: #10b981;
     --danger-color: #ef4444;
     --dark-color: #1f2937;
@@ -149,10 +149,10 @@ section:not(.hero) {
     --gray-700: #334155;
     --gray-800: #1e293b;
     --gray-900: #0f172a;
-    
-    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+
+    --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #334155 100%);
+    --gradient-secondary: linear-gradient(135deg, #475569 0%, #1e293b 100%);
+    --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
     
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -457,7 +457,7 @@ body::before, body::after, html::before, html::after {
 }
 
 .highlight {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: linear-gradient(135deg, #d4a574 0%, #f59e0b 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1150,6 +1150,58 @@ section {
 
 .timeline-badge.academic {
     background: var(--gradient-secondary);
+}
+
+.timeline-badge.personal {
+    background: var(--gradient-accent);
+}
+
+.project-image {
+    margin-top: 20px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.project-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.project-image img:hover {
+    transform: scale(1.02);
+}
+
+.project-gallery {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.project-preview {
+    margin-top: 10px;
+}
+
+.preview-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--gradient-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.preview-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
 }
 
 .timeline-content h3 {
