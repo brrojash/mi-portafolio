@@ -434,6 +434,17 @@ body::before, body::after, html::before, html::after {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.avatar-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 2;
+    position: relative;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
 .hero-title {
     font-size: 4rem;
     font-weight: 800;
